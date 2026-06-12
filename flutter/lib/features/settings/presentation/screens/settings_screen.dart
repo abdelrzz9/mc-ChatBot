@@ -274,7 +274,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final selected = settings.aiProvider.toLowerCase();
 
     return DropdownButtonFormField<String>(
-      value: providers.contains(selected) ? selected : providers.first,
+      initialValue: providers.contains(selected) ? selected : providers.first,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: AppRadius.borderRadiusMd,
