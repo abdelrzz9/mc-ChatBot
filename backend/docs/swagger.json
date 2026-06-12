@@ -1,0 +1,323 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ChatBot API",
+    "description": "AI ChatBot with RAG support",
+    "version": "1.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/api/v1",
+  "schemes": ["http", "https"],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Type \"Bearer\" followed by a space and JWT token."
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Register a new user",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/RegisterRequest"
+          }
+        }],
+        "responses": {
+          "201": { "description": "Token response" },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Login",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/LoginRequest"
+          }
+        }],
+        "responses": {
+          "200": { "description": "Token response" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Refresh token",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/RefreshTokenRequest"
+          }
+        }],
+        "responses": {
+          "200": { "description": "Token response" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Logout",
+        "security": [{"BearerAuth": []}],
+        "responses": {
+          "200": { "description": "Logout success" }
+        }
+      }
+    },
+    "/conversations": {
+      "get": {
+        "tags": ["chat"],
+        "summary": "List conversations",
+        "security": [{"BearerAuth": []}],
+        "responses": {
+          "200": { "description": "Conversations list" }
+        }
+      },
+      "post": {
+        "tags": ["chat"],
+        "summary": "Create conversation",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/CreateConversationRequest"
+          }
+        }],
+        "responses": {
+          "201": { "description": "Conversation created" }
+        }
+      }
+    },
+    "/conversations/{id}": {
+      "put": {
+        "tags": ["chat"],
+        "summary": "Rename conversation",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }, {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/RenameConversationRequest"
+          }
+        }],
+        "responses": {
+          "200": { "description": "Renamed" }
+        }
+      },
+      "delete": {
+        "tags": ["chat"],
+        "summary": "Delete conversation",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": { "description": "Deleted" }
+        }
+      }
+    },
+    "/conversations/{id}/messages": {
+      "get": {
+        "tags": ["chat"],
+        "summary": "Get messages",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": { "description": "Messages list" }
+        }
+      }
+    },
+    "/chat/send": {
+      "post": {
+        "tags": ["chat"],
+        "summary": "Send message (SSE)",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/SendMessageRequest"
+          }
+        }],
+        "responses": {
+          "200": { "description": "SSE stream" }
+        }
+      }
+    },
+    "/documents/upload": {
+      "post": {
+        "tags": ["documents"],
+        "summary": "Upload document",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "formData",
+          "name": "file",
+          "required": true,
+          "type": "file"
+        }],
+        "responses": {
+          "201": { "description": "Document created" }
+        }
+      }
+    },
+    "/documents": {
+      "get": {
+        "tags": ["documents"],
+        "summary": "List documents",
+        "security": [{"BearerAuth": []}],
+        "responses": {
+          "200": { "description": "Documents list" }
+        }
+      }
+    },
+    "/documents/{id}": {
+      "delete": {
+        "tags": ["documents"],
+        "summary": "Delete document",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": { "description": "Deleted" }
+        }
+      }
+    },
+    "/documents/{id}/reindex": {
+      "post": {
+        "tags": ["documents"],
+        "summary": "Re-index document",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": { "description": "Reindexed" }
+        }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": ["settings"],
+        "summary": "Get settings",
+        "security": [{"BearerAuth": []}],
+        "responses": {
+          "200": { "description": "Settings" }
+        }
+      },
+      "put": {
+        "tags": ["settings"],
+        "summary": "Update settings",
+        "security": [{"BearerAuth": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/UpdateSettingsRequest"
+          }
+        }],
+        "responses": {
+          "200": { "description": "Updated" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RegisterRequest": {
+      "type": "object",
+      "required": ["email", "password", "display_name"],
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "password": { "type": "string", "minLength": 8 },
+        "display_name": { "type": "string" }
+      }
+    },
+    "LoginRequest": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "password": { "type": "string" }
+      }
+    },
+    "RefreshTokenRequest": {
+      "type": "object",
+      "required": ["refresh_token"],
+      "properties": {
+        "refresh_token": { "type": "string" }
+      }
+    },
+    "CreateConversationRequest": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" }
+      }
+    },
+    "RenameConversationRequest": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string" }
+      }
+    },
+    "SendMessageRequest": {
+      "type": "object",
+      "required": ["conversation_id", "content"],
+      "properties": {
+        "conversation_id": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    },
+    "UpdateSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "theme": { "type": "string" },
+        "ai_provider": { "type": "string" },
+        "openai_api_key": { "type": "string" },
+        "anthropic_api_key": { "type": "string" },
+        "ollama_base_url": { "type": "string" }
+      }
+    }
+  }
+}

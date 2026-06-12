@@ -22,17 +22,17 @@ abstract final class AppComponentThemes {
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
           elevation: DesignTokens.elevation0,
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: DesignTokens.space24,
             vertical: DesignTokens.space16,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
           ),
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
+          textStyle: TextStyle(
+            fontSize: DesignTokens.fontSize16,
+            fontWeight: DesignTokens.fontWeightSemiBold,
+            letterSpacing: DesignTokens.letterSpacingWide,
           ),
         ),
       );
@@ -44,17 +44,17 @@ abstract final class AppComponentThemes {
         style: OutlinedButton.styleFrom(
           foregroundColor: colorScheme.primary,
           side: BorderSide(color: colorScheme.outline, width: 1.5),
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: DesignTokens.space24,
             vertical: DesignTokens.space16,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(DesignTokens.radiusMd),
           ),
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
+          textStyle: TextStyle(
+            fontSize: DesignTokens.fontSize16,
+            fontWeight: DesignTokens.fontWeightSemiBold,
+            letterSpacing: DesignTokens.letterSpacingWide,
           ),
         ),
       );
@@ -63,7 +63,7 @@ abstract final class AppComponentThemes {
       TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: DesignTokens.space16,
             vertical: DesignTokens.space12,
           ),
@@ -79,7 +79,7 @@ abstract final class AppComponentThemes {
       InputDecorationTheme(
         filled: true,
         fillColor: colorScheme.surfaceContainerHighest,
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: EdgeInsets.symmetric(
           horizontal: DesignTokens.space16,
           vertical: DesignTokens.space16,
         ),
@@ -118,7 +118,7 @@ abstract final class AppComponentThemes {
       borderRadius: BorderRadius.circular(DesignTokens.radiusLg),
     ),
     clipBehavior: Clip.antiAlias,
-    margin: const EdgeInsets.symmetric(horizontal: DesignTokens.space16),
+    margin: EdgeInsets.symmetric(horizontal: DesignTokens.space16),
   );
 
   static DialogThemeData dialogTheme(ColorScheme colorScheme) => DialogThemeData(
@@ -146,14 +146,14 @@ abstract final class AppComponentThemes {
           if (states.contains(WidgetState.selected)) {
             return TextStyle(
               color: colorScheme.onSecondaryContainer,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+              fontSize: DesignTokens.fontSize12,
+              fontWeight: DesignTokens.fontWeightSemiBold,
             );
           }
           return TextStyle(
             color: colorScheme.onSurfaceVariant,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
+            fontSize: DesignTokens.fontSize12,
+            fontWeight: DesignTokens.fontWeightMedium,
           );
         }),
       );
@@ -208,7 +208,7 @@ abstract final class AppComponentThemes {
 
   static IconThemeData iconTheme(ColorScheme colorScheme) => IconThemeData(
     color: colorScheme.onSurfaceVariant,
-    size: 24,
+    size: DesignTokens.sizeIcon,
   );
 
   static SwitchThemeData switchTheme(ColorScheme colorScheme) => SwitchThemeData(
@@ -257,7 +257,10 @@ abstract final class AppComponentThemes {
           color: colorScheme.inverseSurface,
           borderRadius: BorderRadius.circular(DesignTokens.radiusSm),
         ),
-        textStyle: TextStyle(color: colorScheme.onSurface, fontSize: 14),
+        textStyle: TextStyle(
+          color: colorScheme.onSurface,
+          fontSize: DesignTokens.fontSize14,
+        ),
       );
 
   static FloatingActionButtonThemeData floatingActionButtonTheme(
@@ -288,7 +291,7 @@ abstract final class AppComponentThemes {
       BottomSheetThemeData(
         backgroundColor: colorScheme.surfaceContainerHigh,
         elevation: DesignTokens.elevation4,
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(DesignTokens.radiusXl),
           ),
@@ -343,7 +346,7 @@ abstract final class AppComponentThemes {
             borderRadius: BorderRadius.circular(DesignTokens.radiusFull),
           ),
         ),
-        padding: const WidgetStatePropertyAll(
+        padding: WidgetStatePropertyAll(
           EdgeInsets.symmetric(horizontal: DesignTokens.space16),
         ),
       );

@@ -1,149 +1,130 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app_theme_colors.dart';
+import 'design_tokens.dart';
 
 abstract final class AppThemeTextStyles {
   AppThemeTextStyles._();
 
   static TextStyle get appBarTitleStyle => GoogleFonts.raleway(
-    color: AppThemeColors.primaryText,
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
+    fontSize: DesignTokens.fontSize20,
+    fontWeight: DesignTokens.fontWeightSemiBold,
   );
 
   static TextStyle get buttonTextStyle => GoogleFonts.raleway(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 0.5,
+    fontSize: DesignTokens.fontSize16,
+    fontWeight: DesignTokens.fontWeightSemiBold,
+    letterSpacing: DesignTokens.letterSpacingWide,
   );
 
-  static TextStyle get inputHintStyle =>
-      GoogleFonts.montserrat(color: AppThemeColors.hintText, fontSize: 14);
+  static TextStyle get inputHintStyle => GoogleFonts.montserrat(
+    fontSize: DesignTokens.fontSize14,
+  );
 
   static TextStyle get inputLabelStyle => GoogleFonts.raleway(
-    color: AppThemeColors.secondaryText,
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
+    fontSize: DesignTokens.fontSize14,
+    fontWeight: DesignTokens.fontWeightMedium,
   );
 
   static TextStyle get splashLargeText => GoogleFonts.playfairDisplay(
-    color: AppThemeColors.primaryText,
-    fontSize: 48,
-    height: 1.0,
-    fontWeight: FontWeight.normal,
+    fontSize: DesignTokens.fontSize48,
+    height: DesignTokens.lineHeightTight,
+    fontWeight: DesignTokens.fontWeightRegular,
     fontStyle: FontStyle.italic,
   );
 
   static TextStyle get splashMediumText => GoogleFonts.playfairDisplay(
-    color: AppThemeColors.subtitleText,
-    fontSize: 18,
-    height: 1.55,
+    fontSize: DesignTokens.fontSize18,
+    height: DesignTokens.lineHeightRelaxed,
     fontStyle: FontStyle.italic,
   );
 
   static TextStyle get onboardingLargeText => GoogleFonts.publicSans(
-    color: AppThemeColors.primaryText,
-    fontSize: 36,
+    fontSize: DesignTokens.fontSize36,
     fontStyle: FontStyle.normal,
   );
 
   static TextStyle get onboardingMediumText => GoogleFonts.publicSans(
-    color: AppThemeColors.subtitleText,
-    fontSize: 18,
+    fontSize: DesignTokens.fontSize18,
     fontStyle: FontStyle.normal,
   );
 
   static TextTheme get textTheme => TextTheme(
     displayLarge: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 57,
-      fontWeight: FontWeight.bold,
-      height: 1.12,
+      fontSize: DesignTokens.fontSize57,
+      fontWeight: DesignTokens.fontWeightBold,
+      height: DesignTokens.lineHeightNormal,
+      letterSpacing: DesignTokens.letterSpacingTight,
     ),
     displayMedium: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 45,
-      fontWeight: FontWeight.bold,
-      height: 1.16,
+      fontSize: DesignTokens.fontSize45,
+      fontWeight: DesignTokens.fontWeightBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     displaySmall: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 36,
-      fontWeight: FontWeight.bold,
-      height: 1.22,
+      fontSize: DesignTokens.fontSize36,
+      fontWeight: DesignTokens.fontWeightBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     headlineLarge: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 32,
-      fontWeight: FontWeight.w600,
-      height: 1.25,
+      fontSize: DesignTokens.fontSize32,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     headlineMedium: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 28,
-      fontWeight: FontWeight.w600,
-      height: 1.29,
+      fontSize: DesignTokens.fontSize28,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     headlineSmall: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 24,
-      fontWeight: FontWeight.w600,
-      height: 1.33,
+      fontSize: DesignTokens.fontSize24,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     titleLarge: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 22,
-      fontWeight: FontWeight.w600,
-      height: 1.27,
+      fontSize: DesignTokens.fontSize22,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightNormal,
     ),
     titleMedium: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      height: 1.5,
+      fontSize: DesignTokens.fontSize16,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightRelaxed,
     ),
     titleSmall: GoogleFonts.raleway(
-      color: AppThemeColors.secondaryText,
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      height: 1.43,
+      fontSize: DesignTokens.fontSize14,
+      fontWeight: DesignTokens.fontWeightSemiBold,
+      height: DesignTokens.lineHeightRelaxed,
     ),
     bodyLarge: GoogleFonts.montserrat(
-      color: AppThemeColors.primaryText,
-      fontSize: 16,
-      fontWeight: FontWeight.normal,
-      height: 1.5,
+      fontSize: DesignTokens.fontSize16,
+      fontWeight: DesignTokens.fontWeightRegular,
+      height: DesignTokens.lineHeightRelaxed,
     ),
     bodyMedium: GoogleFonts.montserrat(
-      color: AppThemeColors.primaryText,
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
-      height: 1.43,
+      fontSize: DesignTokens.fontSize14,
+      fontWeight: DesignTokens.fontWeightRegular,
+      height: DesignTokens.lineHeightRelaxed,
     ),
     bodySmall: GoogleFonts.montserrat(
-      color: AppThemeColors.secondaryText,
-      fontSize: 12,
-      fontWeight: FontWeight.normal,
-      height: 1.33,
+      fontSize: DesignTokens.fontSize12,
+      fontWeight: DesignTokens.fontWeightRegular,
+      height: DesignTokens.lineHeightRelaxed,
     ),
     labelLarge: GoogleFonts.raleway(
-      color: AppThemeColors.primaryText,
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.1,
+      fontSize: DesignTokens.fontSize14,
+      fontWeight: DesignTokens.fontWeightMedium,
+      letterSpacing: DesignTokens.letterSpacingNormal,
     ),
     labelMedium: GoogleFonts.raleway(
-      color: AppThemeColors.secondaryText,
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.5,
+      fontSize: DesignTokens.fontSize12,
+      fontWeight: DesignTokens.fontWeightMedium,
+      letterSpacing: DesignTokens.letterSpacingWide,
     ),
     labelSmall: GoogleFonts.raleway(
-      color: AppThemeColors.hintText,
-      fontSize: 11,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.5,
+      fontSize: DesignTokens.fontSize11,
+      fontWeight: DesignTokens.fontWeightMedium,
+      letterSpacing: DesignTokens.letterSpacingWide,
     ),
   );
 }

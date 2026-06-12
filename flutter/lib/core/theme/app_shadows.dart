@@ -49,4 +49,13 @@ abstract final class AppShadows {
       color: Color(0x33000000),
     ),
   ];
+
+  static const List<BoxShadow> elevation6 = [
+    BoxShadow(
+      offset: Offset(0, 12),
+      blurRadius: 24,
+      spreadRadius: 0,
+      color: Color(0x40000000),
+    ),
+  ];
 }

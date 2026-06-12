@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-import 'app_theme_colors.dart';
 import 'app_theme_data.dart';
 import 'app_theme_metrics.dart';
 import 'app_theme_text_styles.dart';
+import 'design_tokens.dart';
 import 'theme_extensions.dart';
 
+export 'app_component_themes.dart';
+export 'app_elevation.dart';
+export 'app_radius.dart';
+export 'app_shadows.dart';
+export 'app_spacing.dart';
 export 'app_theme_colors.dart';
 export 'app_theme_data.dart';
 export 'app_theme_metrics.dart';
 export 'app_theme_text_styles.dart';
-export 'app_spacing.dart';
-export 'app_radius.dart';
-export 'app_elevation.dart';
-export 'app_shadows.dart';
-export 'theme_extensions.dart';
 export 'design_tokens.dart';
-export 'app_component_themes.dart';
+export 'theme_extensions.dart';
 
 abstract final class AppTheme {
   AppTheme._();
@@ -33,61 +33,58 @@ abstract final class AppTheme {
   static AppDurations durations(BuildContext context) =>
       Theme.of(context).extension<AppDurations>() ?? AppDurations.standard;
 
-  static const Color primaryColor = AppThemeColors.primaryAccent;
-  static const Color primaryAccent = AppThemeColors.primaryAccent;
-  static const Color secondaryColor = AppThemeColors.secondaryAccent;
-  static const Color secondaryAccent = AppThemeColors.secondaryAccent;
-  static const Color accentColor = AppThemeColors.accent;
-  static const Color backgroundColor = AppThemeColors.background;
-  static const Color surfaceColor = AppThemeColors.surface;
-  static const Color cardColor = AppThemeColors.card;
-  static const Color onboardingBackgroundColor =
-      AppThemeColors.onboardingBackground;
-  static const Color splashBackgroundColor = AppThemeColors.splashBackground;
-  static const Color readingBackgroundColor = AppThemeColors.readingBackground;
-  static const Color activeCardBackgroundColor =
-      AppThemeColors.activeCardBackground;
-  static const Color activeCardBorderColor = AppThemeColors.activeCardBorder;
-  static const Color archivedCardBackgroundColor =
-      AppThemeColors.archivedCardBackground;
-  static const Color archivedCardBorderColor =
-      AppThemeColors.archivedCardBorder;
-  static const Color cardDateTextColor = AppThemeColors.cardDateText;
-  static const Color archivedTitleColor = AppThemeColors.archivedTitle;
-  static const Color archivedDateColor = AppThemeColors.archivedDate;
-  static const Color primaryTextColor = AppThemeColors.primaryText;
-  static const Color secondaryTextColor = AppThemeColors.secondaryText;
-  static const Color hintTextColor = AppThemeColors.hintText;
-  static const Color subtitleTextColor = AppThemeColors.subtitleText;
-  static const Color goldColor = AppThemeColors.gold;
-  static const Color dividerTextColor = AppThemeColors.dividerText;
-  static const Color dividerColor = AppThemeColors.divider;
-  static const Color gradientOverlayColor = AppThemeColors.gradientOverlay;
-  static const Color buttonColor = AppThemeColors.button;
-  static const Color selectedColor = AppThemeColors.selected;
-  static const Color borderColor = AppThemeColors.border;
-  static const Color inputFillColor = AppThemeColors.inputFill;
-  static const Color inputBorderColor = AppThemeColors.inputBorder;
-  static const Color formCardColor = AppThemeColors.formCard;
-  static const Color successColor = AppThemeColors.success;
-  static const Color errorColor = AppThemeColors.error;
-  static const Color warningColor = AppThemeColors.warning;
-  static const Color infoColor = AppThemeColors.info;
-  static const Color activeEventDotColor = AppThemeColors.activeEventDot;
-  static const Color highlightColor = AppThemeColors.highlight;
-  static const Color bookmarkColor = AppThemeColors.bookmark;
-  static const Color googleColor = AppThemeColors.google;
-  static const Color appleColor = AppThemeColors.apple;
-  static const Color overlayColor = AppThemeColors.overlay;
-  static const Color shimmerColor = AppThemeColors.shimmer;
-  static const Color photoSlotColor = AppThemeColors.photoSlot;
-  static const Color tipsBgColor = AppThemeColors.tipsBackground;
-  static const Color enrollDisabledColor = AppThemeColors.enrollDisabled;
-  static const Color tabUnselectedTextColor = AppThemeColors.tabUnselectedText;
-  static const Color tabDividerColor = AppThemeColors.tabDivider;
+  // Color conveniences - all from DesignTokens
+  static const Color primaryColor = DesignTokens.primarySeed;
+  static const Color primaryAccent = DesignTokens.primarySeed;
+  static const Color secondaryColor = DesignTokens.secondarySeed;
+  static const Color secondaryAccent = DesignTokens.secondarySeed;
+  static const Color accentColor = DesignTokens.primarySeed;
+  static const Color backgroundColor = DesignTokens.neutralBlack;
+  static const Color surfaceColor = DesignTokens.neutralGray900;
+  static const Color cardColor = DesignTokens.neutralGray900;
+  static const Color onboardingBackgroundColor = DesignTokens.neutralBlack;
+  static const Color splashBackgroundColor = DesignTokens.neutralBlack;
+  static const Color readingBackgroundColor = DesignTokens.neutralBlack;
+  static const Color activeCardBackgroundColor = DesignTokens.neutralGray800;
+  static const Color activeCardBorderColor = DesignTokens.neutralGray700;
+  static const Color archivedCardBackgroundColor = DesignTokens.neutralGray800;
+  static const Color archivedCardBorderColor = DesignTokens.neutralGray700;
+  static const Color cardDateTextColor = DesignTokens.neutralGray500;
+  static const Color archivedTitleColor = DesignTokens.neutralGray500;
+  static const Color archivedDateColor = DesignTokens.neutralGray600;
+  static const Color primaryTextColor = DesignTokens.neutralWhite;
+  static const Color secondaryTextColor = DesignTokens.neutralGray300;
+  static const Color hintTextColor = DesignTokens.neutralGray600;
+  static const Color subtitleTextColor = DesignTokens.neutralGray500;
+  static const Color goldColor = DesignTokens.primarySeed;
+  static const Color dividerTextColor = DesignTokens.neutralGray600;
+  static const Color dividerColor = DesignTokens.neutralGray700;
+  static const Color gradientOverlayColor = DesignTokens.primarySeed;
+  static const Color buttonColor = DesignTokens.primarySeed;
+  static const Color selectedColor = DesignTokens.neutralGray800;
+  static const Color borderColor = DesignTokens.neutralGray700;
+  static const Color inputFillColor = DesignTokens.neutralGray900;
+  static const Color inputBorderColor = DesignTokens.neutralGray600;
+  static const Color formCardColor = DesignTokens.primarySeed;
+  static const Color successColor = DesignTokens.successLight;
+  static const Color errorColor = DesignTokens.errorLight;
+  static const Color warningColor = DesignTokens.warningLight;
+  static const Color infoColor = DesignTokens.infoLight;
+  static const Color activeEventDotColor = DesignTokens.successLight;
+  static const Color highlightColor = DesignTokens.utilityHighlight;
+  static const Color bookmarkColor = DesignTokens.primarySeed;
+  static const Color googleColor = DesignTokens.utilityGoogle;
+  static const Color appleColor = DesignTokens.neutralWhite;
+  static const Color overlayColor = DesignTokens.utilityOverlay;
+  static const Color shimmerColor = DesignTokens.neutralGray800;
+  static const Color photoSlotColor = DesignTokens.neutralGray600;
+  static const Color tipsBgColor = DesignTokens.neutralGray500;
+  static const Color enrollDisabledColor = DesignTokens.primarySeed;
+  static const Color tabUnselectedTextColor = DesignTokens.neutralGray500;
+  static const Color tabDividerColor = DesignTokens.neutralGray300;
+  static const Color slateGray = DesignTokens.neutralGray500;
 
-  static const Color slateGray = AppThemeColors.subtitleText;
-
+  // Metrics conveniences - all from DesignTokens via AppThemeMetrics
   static const double radiusSm = AppThemeMetrics.radiusSm;
   static const double radiusMd = AppThemeMetrics.radiusMd;
   static const double radiusLg = AppThemeMetrics.radiusLg;
@@ -106,6 +103,7 @@ abstract final class AppTheme {
   static const double notifDotSize = AppThemeMetrics.notifDotSize;
   static const double emptyStatePadding = AppThemeMetrics.emptyStatePadding;
 
+  // Text style conveniences
   static TextStyle get splashLargeText => AppThemeTextStyles.splashLargeText;
   static TextStyle get splashMediumText => AppThemeTextStyles.splashMediumText;
   static TextStyle get onboardingLargeText =>

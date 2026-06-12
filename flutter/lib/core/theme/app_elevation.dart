@@ -9,4 +9,5 @@ abstract final class AppElevation {
   static const double high = DesignTokens.elevation3;
   static const double extraHigh = DesignTokens.elevation4;
   static const double overlay = DesignTokens.elevation5;
+  static const double highest = DesignTokens.elevation6;
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'design_tokens.dart';
 import 'app_component_themes.dart';
+import 'app_theme_colors.dart';
 import 'app_theme_text_styles.dart';
 import 'theme_extensions.dart';
 
@@ -9,21 +9,23 @@ abstract final class AppThemeData {
   AppThemeData._();
 
   static ThemeData get lightTheme {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: DesignTokens.primarySeed,
-      brightness: Brightness.light,
-    );
+    final colorScheme = AppThemeColors.lightColorScheme();
 
-    return _buildThemeData(colorScheme, AppThemeTextStyles.textTheme, BrandColors.light);
+    return _buildThemeData(
+      colorScheme,
+      AppThemeTextStyles.textTheme,
+      BrandColors.light,
+    );
   }
 
   static ThemeData get darkTheme {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: DesignTokens.primarySeed,
-      brightness: Brightness.dark,
-    );
+    final colorScheme = AppThemeColors.darkColorScheme();
 
-    return _buildThemeData(colorScheme, AppThemeTextStyles.textTheme, BrandColors.dark);
+    return _buildThemeData(
+      colorScheme,
+      AppThemeTextStyles.textTheme,
+      BrandColors.dark,
+    );
   }
 
   static ThemeData _buildThemeData(

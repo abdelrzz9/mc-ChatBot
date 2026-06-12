@@ -20,12 +20,12 @@ class BrandColors extends ThemeExtension<BrandColors> {
   });
 
   static const light = BrandColors(
-    brandPrimary: Color(0xFFD4872F),
-    brandSecondary: Color(0xFF4A90D9),
+    brandPrimary: DesignTokens.primarySeed,
+    brandSecondary: DesignTokens.secondarySeed,
     brandTertiary: Color(0xFF7C5CBF),
     brandSurface: Color(0xFFFFF8F0),
     brandBackground: Color(0xFFFFFCF7),
-    brandOnBackground: Color(0xFF1C1B1F),
+    brandOnBackground: DesignTokens.neutralBlack,
   );
 
   static const dark = BrandColors(

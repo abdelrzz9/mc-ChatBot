@@ -1,51 +1,93 @@
 package routes
 
 import (
-	"net/http"
+	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/redis/go-redis/v9"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
+	"github.com/mc-club/chatbot-backend/internal/ai"
 	"github.com/mc-club/chatbot-backend/internal/config"
+	"github.com/mc-club/chatbot-backend/internal/handlers"
+	"github.com/mc-club/chatbot-backend/internal/middleware"
+	"github.com/mc-club/chatbot-backend/internal/repositories"
+	"github.com/mc-club/chatbot-backend/internal/services"
 )
 
-func Setup(cfg *config.Config) http.Handler {
-	mux := http.NewServeMux()
+// @title ChatBot API
+// @version 1.0
+// @description AI ChatBot with RAG support
+// @host localhost:8080
+// @BasePath /api/v1
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
+func Setup(cfg *config.Config, pool *pgxpool.Pool, rdb *redis.Client) *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
 
-	mux.HandleFunc("GET /api/health", healthHandler)
+	router.Use(
+		middleware.LoggerMiddleware(),
+		gin.Recovery(),
+		middleware.CORSMiddleware(cfg.CORSOrigins),
+	)
 
-	mux.HandleFunc("GET /api/chat/sessions", listSessionsHandler)
-	mux.HandleFunc("POST /api/chat/sessions", createSessionHandler)
-	mux.HandleFunc("DELETE /api/chat/sessions/{id}", deleteSessionHandler)
-	mux.HandleFunc("GET /api/chat/sessions/{id}/messages", getSessionMessagesHandler)
-	mux.HandleFunc("POST /api/chat/message", sendMessageHandler)
+	ratelimiter := middleware.NewRateLimiter(cfg.RateLimitRequests, cfg.RateLimitWindow)
+	ratelimiter.Cleanup(cfg.RateLimitWindow * 2)
 
-	mux.HandleFunc("GET /api/documents", listDocumentsHandler)
-	mux.HandleFunc("POST /api/documents/upload", uploadDocumentHandler)
-	mux.HandleFunc("DELETE /api/documents/{filename}", deleteDocumentHandler)
+	authRepo := repositories.NewAuthRepository(pool)
+	chatRepo := repositories.NewChatRepository(pool)
+	docRepo := repositories.NewDocumentRepository(pool)
+	settingsRepo := repositories.NewSettingsRepository(pool)
 
-	return corsMiddleware(mux, cfg.CORSOrigins)
-}
+	ragSvc := services.NewRAGService(cfg, docRepo)
 
-func corsMiddleware(next http.Handler, origins []string) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Header.Get("Origin")
-		for _, allowed := range origins {
-			if allowed == "*" || allowed == origin {
-				w.Header().Set("Access-Control-Allow-Origin", origin)
-				break
-			}
-		}
-		if origin == "" {
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-		}
+	chatSvc := services.NewChatService(chatRepo, ragSvc)
+	authSvc := services.NewAuthService(cfg, authRepo, settingsRepo)
+	docSvc := services.NewDocumentService(cfg, docRepo, ragSvc)
+	settingsSvc := services.NewSettingsService(settingsRepo)
 
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
+	defaultProvider := ai.NewProvider(cfg)
 
-		if r.Method == http.MethodOptions {
-			w.WriteHeader(http.StatusNoContent)
-			return
-		}
+	authHandler := handlers.NewAuthHandler(authSvc)
+	chatHandler := handlers.NewChatHandler(chatSvc, ragSvc, defaultProvider, settingsSvc)
+	docHandler := handlers.NewDocumentHandler(docSvc)
+	settingsHandler := handlers.NewSettingsHandler(settingsSvc)
 
-		next.ServeHTTP(w, r)
-	})
+	api := router.Group("/api/v1")
+	api.Use(middleware.RateLimitMiddleware(ratelimiter))
+
+	auth := api.Group("/auth")
+	{
+		auth.POST("/register", authHandler.Register)
+		auth.POST("/login", authHandler.Login)
+		auth.POST("/refresh", authHandler.Refresh)
+	}
+
+	protected := api.Group("")
+	protected.Use(middleware.AuthMiddleware(authSvc))
+	{
+		protected.POST("/auth/logout", authHandler.Logout)
+
+		protected.GET("/conversations", chatHandler.ListConversations)
+		protected.POST("/conversations", chatHandler.CreateConversation)
+		protected.PUT("/conversations/:id", chatHandler.RenameConversation)
+		protected.DELETE("/conversations/:id", chatHandler.DeleteConversation)
+		protected.GET("/conversations/:id/messages", chatHandler.GetMessages)
+		protected.POST("/chat/send", chatHandler.SendMessage)
+
+		protected.POST("/documents/upload", docHandler.Upload)
+		protected.GET("/documents", docHandler.ListDocuments)
+		protected.DELETE("/documents/:id", docHandler.DeleteDocument)
+		protected.POST("/documents/:id/reindex", docHandler.ReindexDocument)
+
+		protected.GET("/settings", settingsHandler.GetSettings)
+		protected.PUT("/settings", settingsHandler.UpdateSettings)
+	}
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	return router
 }

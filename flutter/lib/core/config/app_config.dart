@@ -2,6 +2,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConfig {
   static String get baseUrl => dotenv.env['BASE_URL']?.trim() ?? '';
+  static String get apiPrefix => '/api/v1';
+  static String get apiUrl => '$baseUrl$apiPrefix';
 
   static bool get isProduction {
     final url = baseUrl;

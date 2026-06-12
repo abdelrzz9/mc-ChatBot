@@ -17,7 +17,7 @@ abstract final class AppThemeMetrics {
 
   static const double activeCardAspectWidth = 358.0;
   static const double activeCardBreakpoint = 350.0;
-  static const double statusDotSize = 10.0;
-  static const double notifDotSize = 8.0;
-  static const double emptyStatePadding = 32.0;
+  static const double statusDotSize = DesignTokens.sizeStatusDot;
+  static const double notifDotSize = DesignTokens.sizeNotifDot;
+  static const double emptyStatePadding = DesignTokens.space32;
 }
